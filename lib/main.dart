@@ -1,57 +1,49 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  static const String _title = 'drawerFlutter';
-  // This widget is the root of your application.
+  static const String _title = 'Drawer en Flutter';
+// This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: _title,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.deepPurple,
       ),
       debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
-
+  const MyHomePage({Key? key}) : super(key: key);
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final GlobalKey<ScaffoldState> _key = GlobalKey();
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text('act3 drawer Naranjo'),
+        title: const Text('Drawer actividad 3'),
         backgroundColor: const Color(0xff764abc),
       ),
+      key: _key,
       drawer: Drawer(
         child: ListView(
-          // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: [
             const UserAccountsDrawerHeader(
               // <-- SEE HERE
               decoration: BoxDecoration(color: const Color(0xff764abc)),
               accountName: Text(
-                "Ever Raul Naranjo Lopez",
+                "Ever Naranjo",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
@@ -75,34 +67,58 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ListTile(
               leading: Icon(
-                Icons.train,
+                Icons.apple,
               ),
-              title: const Text('Page 2'),
+              title: const Text('Pagina 2'),
               onTap: () {
                 Navigator.pop(context);
               },
             ),
             ListTile(
               leading: Icon(
-                Icons.add_a_photo,
+                Icons.pedal_bike,
               ),
-              title: const Text('Page 3'),
+              title: const Text('Pagina 3'),
               onTap: () {
                 Navigator.pop(context);
               },
+            ),
+            AboutListTile(
+              // <-- SEE HERE
+              icon: Icon(
+                Icons.info,
+              ),
+              child: Text('About app'),
+              applicationIcon: Icon(
+                Icons.local_play,
+              ),
+              applicationName: 'Mi aplicacion',
+              applicationVersion: '1.0.25',
+              applicationLegalese: '© 2023 ',
+              aboutBoxChildren: [
+                ///Content goes here...
+              ],
             ),
           ],
         ),
       ),
       body: Center(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 50,
+          child: Column(
+        children: [
+          SizedBox(
+            height: 50,
+          ),
+          ElevatedButton(
+            onPressed: () {
+              _key.currentState!.openDrawer(); //<-- SEE HERE
+            },
+            child: const Text(
+              'Elevated Button 1',
+              style: TextStyle(fontSize: 24),
             ),
-          ],
-        ),
-      ),
+          ),
+        ],
+      )),
     );
   }
 }
